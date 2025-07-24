@@ -1,0 +1,32 @@
+<!DOCTYPE html><html>
+<head>
+    <title>ESP32 Humidity & Temperature Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f9fafb;
+        }
+        canvas {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>ESP32 Humidity & Temperature Dashboard</h1>
+    <p id="status">Connecting to MQTT...</p>
+    <canvas id="humidityChart"></canvas>
+    <canvas id="temperatureChart"></canvas><script>
+    const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt');
+    const topic = 'home/sensor';
+
+    const humidityCtx = document.getElementById('humidityChart').getContext('2d');
